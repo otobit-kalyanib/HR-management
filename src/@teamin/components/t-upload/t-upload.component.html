@@ -1,0 +1,33 @@
+<div class="form-group configuration">
+    <ng-container *ngIf="this.isPreview">
+        <div class="size mt-3">
+            <!-- <iframe src="{{url}}" style="width:100%;height:700px;"></iframe> -->
+
+            <!-- <iframe src="{{url}}" height="100" scrolling="auto"></iframe> -->
+            <img *ngIf="checkType(1)" src="{{url}}" type="file" height="100" crossorigin="use-credentials">
+
+            <button *ngIf="checkType(2)" mat-mini-fab color="accent" (click)="loadPreview(url) ">
+                <i class="fa fa-file-pdf"></i>
+            </button>
+
+
+            <!-- <pdf-viewer [src]="url" [rotation]="0" [original-size]="false" [show-all]="false" [fit-to-page]="false" [zoom]="1" [zoom-scale]="'page-width'" [stick-to-page]="true" [render-text]="true" [external-link-target]="'blank'" [autoresize]="true" [show-borders]="false"
+                style="width: 100%; height: 600px;"></pdf-viewer> -->
+            <!-- <iframe src="{{url}}" frameBorder="0" scrolling="auto" height="100%" width="100%"></iframe> -->
+            <!-- <embed [src]="url" width="800px" height="2100px" /> -->
+            <!-- <pdf-viewer class="alignComponentCenter" [src]="pdfSrc" </pdf-viewer> -->
+            <!-- <object [data]="url" width="500px" height="600px"> -->
+            <!-- <p>Your web browser doesn't have a PDF plugin.
+             <a href="./filename.pdf">click here to download the PDF file.</a></p> -->
+            <!-- </object> -->
+
+            <!-- <pdf-viewer [src]="url" [rotation]="0" [original-size]="false" [show-all]="false" [fit-to-page]="false" [zoom]="1" [zoom-scale]="'page-width'" [stick-to-page]="false" [render-text]="true" [external-link-target]="'blank'" [autoresize]="true" [show-borders]="false"
+                style="width: 100%; height: 600px;"></pdf-viewer>-->
+        </div>
+    </ng-container>
+    <kendo-upload [saveUrl]="uploadSaveUrl" [removeUrl]="uploadRemoveUrl" [restrictions]="myRestrictions"
+        [multiple]="isMulti" (upload)="uploadEventHandler($event)" (remove)="removeEventHandler($event)"
+        (success)="successEventHandler($event)" (error)="errorEventHandler($event)"
+        (select)="selectEventHandler($event)" [(ngModel)]="myFiles" (onRemove)="onRemove()">
+    </kendo-upload>
+</div>

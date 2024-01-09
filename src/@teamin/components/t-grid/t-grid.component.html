@@ -1,0 +1,106 @@
+<div style="height: 100%">
+    <kendo-grid #ele *ngIf="!(_isDataLoading || _isSchemaLoading)" [style.height.%]="100" [data]="_gridData"
+        [size]="'small'" [resizable]="'true'" [pageSize]="_gridOptions.state.take" [skip]="_gridOptions.state.skip"
+        kendoGridSelectBy="Id" [sort]="_gridOptions.state.sort" [filter]="_gridOptions.state.filter"
+        [selectable]="_gridOptions.selectableSettings" [pageable]="_gridOptions.pageable" [sortable]="'true'"
+        [scrollable]="'true'" [columnMenu]="{ filter: true }" (dataStateChange)="dataStateChange($event)"
+        [kendoGridSelectBy]="_gridOptions.keyField" [selectedKeys]="value || []">
+        <ng-template kendoGridToolbarTemplate>
+            <h4 class="mt-2 float-left">{{ _gridOptions.dt }}</h4>
+            <button *ngIf="_gridOptions.enableExcel" type="button" kendoGridExcelCommand class="pull-right mr-2">
+                <i class="fa fa-file-excel"></i>
+            </button>
+            <button *ngIf="_gridOptions.enablePDF" type="button" kendoGridPDFCommand class="pull-right mr-2">
+                <i class="fa fa-file-pdf"></i>
+            </button>
+            <button *ngIf="
+           
+            permissionExists(options.CreateCon) &&
+                    options &&
+                    options.CreateCon != ''
+                " type="button" class="pull-left btn btn-secondary btn-sm" (click)="loadCreate()">
+                <i class="fa fa-plus"></i>
+            </button>
+        </ng-template>
+        <kendo-grid-checkbox-column *ngIf="_gridOptions.selectableSettings.enabled" [autoSize]="'true'"
+            [showSelectAll]="true"></kendo-grid-checkbox-column>
+        <kendo-grid-excel *ngIf="_gridOptions.enableExcel" fileName="{{ getExcelFileName() }}"></kendo-grid-excel>
+        <kendo-grid-pdf *ngIf="_gridOptions.enablePDF" fileName="{{ getPDFFileName() }}"></kendo-grid-pdf>
+        <kendo-grid-column *ngIf="
+        permissionExists(options.EditCon) &&
+                options &&
+                options.EditCon != ''
+                
+            " [width]="57" [columnMenu]="false">
+            <ng-template kendoGridCellTemplate let-dataItem>
+                <button mat-mini-fab color="accent" (click)="loadEdit(dataItem[dataKeyName])">
+                    <i class="fa fa-edit"></i>
+                </button>
+            </ng-template>
+        </kendo-grid-column>
+        <kendo-grid-column *ngIf="options.DownloadCon" [title]="'Actions'" [columnMenu]="false" [width]="107">
+            <ng-template kendoGridCellTemplate let-dataItem>
+                <button  mat-mini-fab *ngIf="this.isDownloadCon"
+                    color="accent" (click)="loadReport(dataItem[dataKeyName], print)" matTooltip="Preview"
+                    [matTooltipPosition]="'above'">
+                    <mat-icon svgIcon="mat_solid:local_printshop" #print></mat-icon>
+                </button>&nbsp;
+                <!-- <button mat-mini-fab color="accent" (click)="loadReport(dataItem[dataKeyName], download)"
+                    matTooltip="Download" [matTooltipPosition]="'above'">
+                    <mat-icon svgIcon="heroicons_outline:document-download" #download></mat-icon>
+                </button>  -->
+                <button *ngIf="this.isPrintCon" mat-mini-fab color="accent" (click)="loadReport(dataItem[dataKeyName], preview)"
+                    matTooltip="Preview" [matTooltipPosition]="'above'">
+                    <mat-icon svgIcon="mat_outline:preview" #preview></mat-icon>
+                </button>
+
+            </ng-template>
+        </kendo-grid-column>
+
+        <ng-container *ngFor="let column of _gridColumns">
+            <kendo-grid-column *ngIf="column.type == 'date'" [field]="column.field" [title]="column.title"
+                [filter]="column.type" [format]="column.format" [hidden]="column.hidden" [columnMenu]="'true'"
+                [autoSize]="'true'">
+                <ng-template kendoGridCellTemplate let-dataItem>
+                    <div *ngIf="column.field != null">
+                        {{
+                        dataItem[column.field] != null
+                        ? dataItem[column.field].indexOf("T00:00:00") ==
+                        -1
+                        ? (dataItem[column.field]
+                        | date: "dd-MM-yyyy HH:mm:ss")
+                        : (dataItem[column.field]
+                        | date: "dd-MM-yyyy")
+                        : null
+                        }}
+                    </div>
+                </ng-template>
+            </kendo-grid-column>
+
+            <kendo-grid-column *ngIf="column.type != 'date'" [field]="column.field" [title]="column.title"
+                [filter]="column.type" [hidden]="column.hidden" [format]="column.format" [columnMenu]="'true'"
+                [autoSize]="'true'">
+            </kendo-grid-column>
+            <kendo-grid-column *ngIf="column.hidden == 'true'" [field]="column.field" [hidden]="column.hidden"
+                [columnMenu]="'true'" [autoSize]="'true'">
+            </kendo-grid-column>
+        </ng-container>
+        <kendo-grid-column *ngIf="this.isPreview" [title]="'Preview'" [columnMenu]="false">
+            <ng-template *ngIf="CheckPreviewStatus()" kendoGridCellTemplate let-dataItem>
+                <button *ngIf="dataItem.Preview " mat-mini-fab color="accent" (click)="loadPreview(dataItem) ">
+                    <i class="fa fa-eye"></i>
+                </button>
+            </ng-template>
+        </kendo-grid-column>
+
+        <kendo-grid-column *ngIf="this.isview" [width]="57 " [columnMenu]="false">
+            <ng-template *ngIf="CheckviewStatus()" kendoGridCellTemplate let-dataItem>
+                <button *ngIf="dataItem.View " mat-mini-fab color="accent" (click)="loadview(dataItem) ">
+                    <mat-icon>code</mat-icon>
+                </button>
+            </ng-template>
+        </kendo-grid-column>
+
+    </kendo-grid>
+    <div *ngIf="_isDataLoading || _isSchemaLoading" class="k-i-loading"></div>
+</div>

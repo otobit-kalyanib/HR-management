@@ -1,0 +1,137 @@
+<div
+    class="widget-group p-8"
+    fxLayout="row wrap"
+    fxFlex="100"
+    *fuseIfOnDom
+    [@animateStagger]="{ value: '50' }"
+>
+    <fuse-card
+        [@animate]="{ value: '*', params: { y: '100%' } }"
+        fxLayout="row"
+        fxFlex="100"
+        fxFlex.gt-sm="100"
+        class="widget widget5 hvr-float-shadow p-0"
+    >
+        <div class="fuse-widget-front">
+            <div
+                class="px-16 border-bottom"
+                fxLayout="row wrap"
+                fxLayoutAlign="space-between center"
+            >
+                <div fxFlex class="py-16 h3">
+                    {{ widget.p.DisplayText }}
+                </div>
+
+                <mat-slide-toggle
+                    class="px-20"
+                    #isStackable
+                    [(ngModel)]="isChecked"
+                    checked="false"
+                    labelPosition="before"
+                    *ngIf="widget.p.WidgetGraphStackable == 'True'"
+                    >Stacked</mat-slide-toggle
+                >
+
+                <mat-form-field>
+                    <mat-select
+                        #chartType
+                        class="simplified"
+                        aria-label="Change range"
+                        value="{{
+                            widget.p.WidgetGraphDefaultChartType | lowercase
+                        }}"
+                    >
+                        <mat-option
+                            *ngFor="
+                                let option of widget.p.WidgetGraphChartTypes?.split(
+                                    ','
+                                )
+                            "
+                            [value]="option | lowercase"
+                        >
+                            {{ option }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div fxLayout="row wrap" fxLayoutAlign="start start">
+                <div
+                    class="h-300 my-16"
+                    fxLayout="row"
+                    fxFlex="100"
+                    *ngIf="seriesData"
+                >
+                    <kendo-chart
+                        fxFlex="100"
+                        *ngIf="seriesData.length"
+                        (seriesClick)="openDialog($event)"
+                    >
+                        <kendo-chart-legend
+                            [visible]="false"
+                        ></kendo-chart-legend>
+
+                        <kendo-chart-series
+                            *ngIf="widget.p.WidgetGraphHasSubCategory == 'True'"
+                        >
+                            <kendo-chart-series-item
+                                *ngFor="let item of seriesData"
+                                type="{{ chartType.value }}"
+                                [stack]="isChecked"
+                                [data]="item.items"
+                                [name]="item.value"
+                                field="value"
+                                categoryField="category"
+                            >
+                                <kendo-chart-series-item-tooltip>
+                                    <ng-template
+                                        let-value="value"
+                                        let-dataItem="dataItem"
+                                    >
+                                        {{ dataItem.subcategory }} - {{ value }}
+                                    </ng-template>
+                                </kendo-chart-series-item-tooltip>
+                            </kendo-chart-series-item>
+                        </kendo-chart-series>
+
+                        <kendo-chart-series
+                            *ngIf="
+                                widget.p.WidgetGraphHasSubCategory !== 'True'
+                            "
+                        >
+                            <kendo-chart-series-item
+                                type="{{ chartType.value }}"
+                                [data]="seriesData"
+                                field="value"
+                                categoryField="category"
+                            >
+                                <kendo-chart-series-item-tooltip>
+                                    <ng-template
+                                        let-value="value"
+                                        let-dataItem="dataItem"
+                                    >
+                                        {{ dataItem.category }} - {{ value }}
+                                    </ng-template>
+                                </kendo-chart-series-item-tooltip>
+                            </kendo-chart-series-item>
+                        </kendo-chart-series>
+                    </kendo-chart>
+                    <div
+                        fxFlex="100"
+                        class="text-center"
+                        *ngIf="!seriesData.length"
+                    >
+                        No data found!
+                    </div>
+                </div>
+                <div
+                    class="h-300 my-16"
+                    fxLayout="row"
+                    fxFlex="100"
+                    *ngIf="!seriesData"
+                >
+                    <div class="k-i-loading"></div>
+                </div>
+            </div>
+        </div>
+    </fuse-card>
+</div>

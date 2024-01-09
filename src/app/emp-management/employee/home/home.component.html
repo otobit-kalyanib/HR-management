@@ -1,0 +1,112 @@
+<div class="d-flex">
+  <fuse-vertical-navigation class="light bg-gray-900 print:hidden" [mode]="isScreenSmall ? 'over' : 'side'"
+    [name]="'mainNavigation'" [opened]="!isScreenSmall">
+    <!-- Navigation header hook -->
+    <ng-container fuseVerticalNavigationContentHeader>
+      <!-- Logo -->
+      <div class="flex items-center h-20 p-6 pb-0 justify-center">
+        <!-- Light version -->
+        <!-- <img class="dark:hidden w-30" src="assets/images/logo/Otobit-Logo.png" alt="Logo image"> -->
+        <!-- Dark version -->
+        <h2 class="text-white text-4xl tracking-widest font-mono font-bold">OTOBIT</h2>
+        <!-- <img class="hidden dark:flex w-30" src="assets/images/logo/Otobit-Logo.png" alt="Logo image"> -->
+      </div>
+    </ng-container>
+    <!-- <fuse-vertical-navigation-basic-item></fuse-vertical-navigation-basic-item> -->
+  </fuse-vertical-navigation>
+  <div class="flex flex-col flex-auto w-full min-w-0">
+
+    <!-- Header -->
+    <div class="relative flex flex-0 items-center w-full h-16 px-4 md:px-6 z-49 shadow dark:shadow-none dark:border-b bg-card dark:bg-transparent print:hidden">
+        <!-- Navigation toggle button -->
+        <button
+            mat-icon-button
+            (click)="toggleNavigation('mainNavigation')"
+            >
+            <mat-icon svgIcon="heroicons_outline:bars-3"></mat-icon>
+        </button>
+        <!-- Components -->
+        <div class="flex items-center pl-2 ml-auto space-x-0.5 sm:space-x-2">
+            <!-- <languages></languages> -->
+            <!-- <fuse-fullscreen class="hidden md:block"></fuse-fullscreen> -->
+            <search [appearance]="'bar'"></search>
+            <shortcuts></shortcuts>
+            <messages></messages>
+            <notifications></notifications>
+           
+            <user></user>
+        </div>
+    </div>
+
+    <!-- Content -->
+  <div class="d-flex align-item-center items-center justify-evenly h-full w-full align-center p-5">
+    <table class="table table-bordered  table-hover w-100">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">First</th>
+          <th scope="col">Last</th>
+          <th scope="col">Handle</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">1</th>
+          <td>Mark</td>
+          <td>Otto</td>
+          <td>@mdo</td>
+        </tr>
+        <tr>
+          <th scope="row">2</th>
+          <td>Jacob</td>
+          <td>Thornton</td>
+          <td>@fat</td>
+        </tr>
+        <tr>
+          <th scope="row">3</th>
+          <td colspan="2">Larry the Bird</td>
+          <td>@twitter</td>
+        </tr>
+      </tbody>
+    </table>
+  
+  <div class="flex flex-col align-item-center items-center justify-center ">
+    <div class="card" style="width: 35rem;">
+      <div class="card-body">
+        <div class="text-heading mb-5">
+          <h2 class="text-4xl font-semibold text-center">Enter the daily work</h2>
+        </div>
+
+        <form [formGroup]="dynamicForm" (ngSubmit)="onSubmit()" class="p-4">
+          <label for="numberOfProjects">Number of Projects:</label>
+          <input type="number" class="form-control" formControlName="numberOfProjects"
+            (change)="onNumberOfProjectsChange()">
+
+          <ng-container formArrayName="projects">
+            <div *ngFor="let project of projectControls; let i = index" [formGroupName]="i" class="mb-4">
+              <div class="d-flex flex-column">
+                <div class="d-flex justify-between">
+                  <label for="projectType" class="block text-sm font-medium text-gray-700 mr-4">Project {{ i + 1 }} Name:</label>
+                  <label for="hoursSpent" class="block text-sm font-medium text-gray-700">Hours Spent:</label>
+                </div>
+                <div class="d-flex justify-between">
+                  <select formControlName="projectType" class="p-2 border rounded-md w-60">
+                    <option value="hotel">Hotel</option>
+                    <option value="sport">Sport</option>
+                    <option value="textbit">TextBit</option>
+                    <option value="convertor">Convertor</option>
+                  </select>
+                  <input type="number" formControlName="hoursSpent" class="mt-1 p-2 border rounded-md w-60">
+                </div>
+              </div>
+            </div>
+            
+          </ng-container>
+
+          <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

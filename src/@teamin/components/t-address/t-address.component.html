@@ -1,0 +1,58 @@
+<mat-card class="card">
+    <mat-card-header style="display: flex; justify-content: space-between">
+        <mat-card-title class="h6"><strong>{{ dt }}</strong></mat-card-title>
+        <div *ngIf="copybtn">
+            <a style="
+                    display: flex;
+                    align-items: center;
+                    text-decoration: none;
+                " class="btn-default" (click)="Copy()">
+                <mat-icon>file_copy</mat-icon>Copy</a>
+        </div>
+        <!-- <i *ngIf="control.errors" class="fa fa-exclamation-circle" matTooltip="{{ control.errors.message  }}" [matTooltipPosition]="'above'"></i> -->
+    </mat-card-header>
+    <mat-card-content>
+        <input type="hidden" kendoTextBox [formControl]="control" />
+        <div class="row">
+            <div class="col-12 mt-3">
+                <div class="form-group">
+                    <input kendoTextBox [(ngModel)]="contactAddress.Street" placeholder="Street" />
+                </div>
+            </div>
+            <div class="col-12 mt-1">
+                <div class="form-group">
+                    <input kendoTextBox [(ngModel)]="contactAddress.Area" placeholder="Area" />
+                </div>
+            </div>
+            <div class="col-12 mt-1">
+                <div class="form-group">
+                    <input kendoTextBox [(ngModel)]="contactAddress.Landmark" placeholder="Landmark" />
+                </div>
+            </div>
+            <div class="col-12 col-sm-8 mt-1">
+                <div class="form-group">
+                    <kendo-autocomplete [data]="_cityData" [filterable]="true" kendoTextBox
+                        [(ngModel)]="contactAddress.City" (filterChange)="loadCityData($event)"
+                        placeholder="City"></kendo-autocomplete>
+                </div>
+            </div>
+            <div class="col-12 col-sm-4 mt-1">
+                <div class="form-group">
+                    <input kendoTextBox [(ngModel)]="contactAddress.Pincode" placeholder="Pincode" maxlength="6"
+                        (ngModelChange)="onPincodeChange()" />
+                </div>
+            </div>
+            <div class="col-12 col-sm-5 mt-1">
+                <div class="form-group">
+                    <input kendoTextBox [(ngModel)]="contactAddress.District" placeholder="District" />
+                </div>
+            </div>
+            <div class="col-12 col-sm-7 mt-1">
+                <div class="form-group">
+                    <kendo-dropdownlist [(ngModel)]="contactAddress.State" [data]="states" [valueField]="'Id'"
+                        [textField]="'Text'"></kendo-dropdownlist>
+                </div>
+            </div>
+        </div>
+    </mat-card-content>
+</mat-card>

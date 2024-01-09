@@ -1,0 +1,58 @@
+<div class="row mt-5">
+    <div class="col-md-12">
+        <mat-card class="card">
+            <mat-card-header>
+                <mat-card-title class="h5"><strong>Vendor Contact Details</strong></mat-card-title>
+            </mat-card-header>
+            <mat-card-content class="table-responsive">
+                <!-- <table class="table table-default table-striped table-bordered mt-3"
+                    formArrayName="this._Table">
+                    <thead>
+                        <tr class="h6 text-center">
+                            <th [width]="10">No.</th>
+                            <th [width]="150">Contact Number</th>
+                            <th [width]="30">Contact Person Name</th>
+                            <th [width]="100">Remarks</th>
+                            <th [width]="10"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <ng-container
+                            *ngFor="let sd of _form.get('VendorContacts').controls;let i = index"
+                            [formGroupName]="i">
+                            <tr>
+                                <td class="text-center">{{ i + 1 }}</td>
+                                <td>
+                                    <t-phone formControlName="ContactNumber"></t-phone>
+                                </td>
+                                <td>
+                                     <t-input    formControlName="ContactPersonName"></t-input>
+                                </td>
+                                <td>
+                                     <t-input    formControlName="Remarks"></t-input>
+                                </td>
+                                <td class="text-center">
+                                    <a mat-icon-button style="margin-top: 10px;" color="accent"
+                                        (click)="removeRow(i)">
+                                        <mat-icon>delete</mat-icon>
+                                    </a>
+                                </td>
+                            </tr>
+                        </ng-container>
+                    </tbody>
+                </table> -->
+
+                <div class="row">
+                    <div class="col-12">
+                        <button mat-mini-fab class="btn btn-default" (click)="addVendorContactDetails()">
+                            <mat-icon>add</mat-icon>
+                        </button>
+                    </div>
+                    <a mat-icon-button style="margin-top: 10px;" color="accent" (click)="removeRow(0)">
+                        <mat-icon>delete</mat-icon>
+                    </a>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

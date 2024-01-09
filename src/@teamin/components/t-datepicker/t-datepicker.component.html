@@ -1,0 +1,16 @@
+<div class="form-group" [ngClass]="{ 'my-invalid': control.errors }">
+    <label *ngIf="dt">{{ dt }}</label>
+    <i
+        *ngIf="control.errors && dt"
+        class="fa fa-exclamation-circle"
+        matTooltip="{{ control.errors.message | json }}"
+        [matTooltipPosition]="'above'"
+    ></i>
+    <kendo-datepicker
+        [attr.disabled]="isDisabled ? '' : null"
+        [format]="'dd-MM-yyyy'"
+        [formControl]="control"
+        (valueChange)="onChange($event)"
+    >
+    </kendo-datepicker>
+</div>

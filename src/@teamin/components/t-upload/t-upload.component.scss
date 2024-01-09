@@ -1,0 +1,23 @@
+.form-group
+{
+    padding-top:10px;
+}
+
+.size {
+    // height: 180px;
+    // width: 180px;
+    // object-fit: fill;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 210px;
+    height: 150px;
+    .img {
+        position: relative;
+        width: 410px;
+        height: 200px;
+        background-position: 50% 50%;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+}

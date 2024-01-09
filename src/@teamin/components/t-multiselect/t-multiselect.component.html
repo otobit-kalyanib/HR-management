@@ -1,0 +1,18 @@
+<div class="form-group" [ngClass]="{ 'my-invalid': control.errors }">
+    <label class="control-label">{{ dt }}</label>
+    <i *ngIf="control.errors" class="fa fa-exclamation-circle" matTooltip="{{ control.errors.message  }}"
+        [matTooltipPosition]="'above'"></i>
+    <i *ngIf="!isProduction" class="fa fa-exclamation-circle" matTooltip="{{ cn }}" [matTooltipPosition]="'above'"></i>
+    <kendo-multiselect [ngStyle]="{ 'border-color': control.errors && !dt ? '#dc3545' : ''}" #searchbox
+        [formControl]="control" [data]="_dataItems" [filterable]="true" [loading]="_isLoading"
+        (filterChange)="handleFilter($event)" [valueField]="'Id'" [textField]="'Text'" [allowCustom]="allowCustom"
+        [valueNormalizer]="valueNormalizer">
+        <ng-template kendoMultiSelectFooterTemplate *ngIf="cr != null">
+            <button style="margin-bottom: 5px;" mat-mini-icon-button matTooltip="Add {{ dt }}" (click)="onaddbutton()">
+                <span class="mr-40">
+                    <mat-icon>add_circle</mat-icon>
+                    <span class="mt-2">Add {{ dt }}</span></span>
+            </button>
+        </ng-template>
+    </kendo-multiselect>
+</div>

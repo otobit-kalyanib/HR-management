@@ -1,0 +1,7 @@
+<div class="form-group">
+    <label class="control-label" *ngIf="dt">{{ dt }}</label>
+    
+    <mat-checkbox [formControl]="control" class="form-control" (change)="onChangeDemo($event)"  [disabled]="isDisabled" [checked]="isChecked">
+        {{ labelText }}
+    </mat-checkbox>
+</div>

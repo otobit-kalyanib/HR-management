@@ -1,0 +1,44 @@
+<div
+    class="absolute inset-0 flex flex-col min-w-0 overflow-hidden"
+    *ngIf="!isModal"
+>
+    <!-- Header -->
+    <div
+        class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between p-1 sm:py-1 sm:px-6 border-b bg-primary text-on-primary dark:bg-transparent"
+    >
+        <div class="flex-1 min-w-0">
+            <h3
+                class="text-2xl md:text-3xl font-bold tracking-tight leading-7 sm:leading-10 truncate"
+                *ngIf="_con"
+            >
+                {{ _con.p.DisplayText }}
+            </h3>
+        </div>
+    </div>
+
+    <!-- Main -->
+    <div
+        class="flex-auto p-0 sm:p-0 rounded-t-2xl shadow overflow-y-auto bg-card"
+        cdkScrollable
+    >
+        <t-report
+            [cn]="cn"
+            [parameters]="parameters"
+            [isModal]="isModal"
+        ></t-report>
+    </div>
+</div>
+
+<mat-dialog-content
+    *ngIf="isModal"
+    style="height: calc(100% - 35px); max-height: 100% !important"
+>
+    <div class="row" style="height: 100%">
+        <div class="col-12" style="height: 100%">
+            <t-report [cn]="cn" [parameters]="parameters"></t-report>
+        </div>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions align="start" *ngIf="isModal">
+    <button mat-dialog-close class="btn btn-secondary">Cancel</button>
+</mat-dialog-actions>

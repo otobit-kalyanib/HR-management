@@ -1,0 +1,58 @@
+<div *ngIf="_isFormReady" class="absolute inset-0 flex flex-col min-w-0 overflow-y-auto" cdkScrollable>
+    <div class="relative flex-0 py-8 px-4 sm:p-16 overflow-hidden bg-gray-800 dark">
+        <svg class="absolute inset-0 pointer-events-none" viewBox="0 0 960 540" width="100%" height="100%"
+            preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
+            <g class="text-gray-700 opacity-25" fill="none" stroke="currentColor" stroke-width="100">
+                <circle r="234" cx="196" cy="23"></circle>
+                <circle r="234" cx="790" cy="491"></circle>
+            </g>
+        </svg>
+        <!-- @formatter:on -->
+        <div class="row">
+            <div class="z-10 relative flex flex-col items-center">
+                <div class="col-md-4 ">
+                    <div class="text-center">
+                        <h2 class="text-xl font-semibold">Select a value to edit</h2>
+                        <form [formGroup]="_form" (ngSubmit)="onSubmit()">
+                            <div class="row">
+                                <div class="col-12">
+                                    <t-combo *ngIf="
+                                con.p.ControlType == null ||
+                                con.p.ControlType == 'Combo' ||
+                                con.p.ControlType == undefined
+                            " formControlName="EditControl" fxLayoutAlign="start center" [pcn]="con.cn"
+                                        [cn]="con.p.EditController"></t-combo>
+
+                                    <t-search *ngIf="con.p.ControlType === 'Search'" formControlName="EditControl"
+                                        fxLayoutAlign="start center" [pcn]="con.cn"
+                                        [cn]="con.p.EditController"></t-search>
+
+                                    <t-drop *ngIf="con.p.ControlType === 'Drop'" formControlName="EditControl"
+                                        fxLayoutAlign="start center" [pcn]="con.cn"
+                                        [cn]="con.p.EditController"></t-drop>
+                                    <t-multicolumn-search *ngIf="
+                            con.p.ControlType === 'MultiColumnSearch'
+                        " formControlName="EditControl" fxLayoutAlign="start center" [pcn]="con.cn"
+                                        [cn]="con.p.EditController">
+                                    </t-multicolumn-search>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <button class="my-3 w-full" mat-raised-button type="submit" color="primary">
+                                        <mat-icon class="icon-size-5 mr-2"
+                                            svgIcon="heroicons_solid:check"></mat-icon>
+                                        Submit
+                                    </button>
+                                </div>
+                            </div>
+                            <!-- <pre
+                        *ngIf="!isProduction"
+                    ><code>{{_form.getRawValue() | json}}</code></pre> -->
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

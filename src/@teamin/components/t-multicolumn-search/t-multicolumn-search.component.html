@@ -1,0 +1,63 @@
+<div class="form-group" [ngClass]="{ 'my-invalid': control.errors }">
+
+    <label *ngIf="dt">{{ dt }}</label>
+    <mat-icon style="font-size: 2em;" *ngIf="istooltip" matTooltip="{{this.tooltip}}"
+        svgIcon="heroicons_outline:information-circle" class="pt-2"></mat-icon>
+
+    <i *ngIf="control.errors && dt" class="fa fa-exclamation-circle" matTooltip="{{ control.errors.message }}"
+        [matTooltipPosition]="'above'"></i>
+    <kendo-multicolumncombobox [ngStyle]="{ 'border-color': control.errors && !dt ? '#dc3545' : ''}" #searchbox
+        [formControl]="control" [data]="_dataItems" [filterable]="true" [loading]="_isLoading"
+        (filterChange)="handleFilter($event)" (valueChange)="onServiceChanged($event)" [valueField]="'Id'"
+        [textField]="'Text'" [allowCustom]="allowCustom" [disabled]="isDisabled ? true : null"
+        [valueNormalizer]="valueNormalizer" [popupSettings]="{}">
+        <ng-template kendoMultiColumnComboBoxNoDataTemplate *ngIf="createCn != null">
+            <button type="button" class="btn btn-outline-tertiary">
+                {{ _apiService.getController(createCn).p.DisplayText }}
+            </button>
+        </ng-template>
+        <kendo-combobox-column *ngFor="let i of columns" field="{{   i.field }}" title="{{ i.title }}"
+            width="{{ i.width }}">
+            <ng-template kendoMultiColumnComboBoxColumnCellTemplate let-dataItem *ngIf="i.field == 'HexCode'">
+                <div class="flex gap-x-2 items-center">
+                    <div class="w-5 h-5" [style.background-color]="dataItem.HexCode"></div>
+                    <p>{{ dataItem.HexCode }}</p>
+                </div>
+
+            </ng-template>
+        </kendo-combobox-column>
+        <ng-template kendoMultiColumnComboBoxFooterTemplate *ngIf="cr != null">
+            <div class="row">
+                <button mat-icon-button>
+                    <div class="row">
+                        <div class="col-md-6" matTooltip="Add {{ dt }}" (click)="onaddbutton()">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <mat-icon>add_circle </mat-icon>
+                                </div>
+                                <div class="col-md-8">
+                                    <p class="ml-2">
+                                        Add {{ dt }}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </button>
+            </div>
+        </ng-template>
+    </kendo-multicolumncombobox>
+
+    <!-- <div *ngIf="this.control.value.Id && this.isvisible">
+        <button class="ml-3 mt-2" (click)="csdrawer.toggle()" onclick="return false;">
+            <a class="mt-1">
+                <i class="fa fa-address-card"></i>
+                View {{ this.isdetalis }}
+                Details
+            </a>
+        </button>
+    </div> -->
+
+</div>
+
+<!-- <csdrawer #csdrawer="csdrawer" [isdetalis]="this.isdetalis" [Id]="this.control.value.Id" [cn]="this.pcn"></csdrawer> -->

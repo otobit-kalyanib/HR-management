@@ -1,0 +1,25 @@
+<div class="form-group configuration" [ngClass]="{ 'my-invalid': control.errors }">
+    <label class="control-label">{{ dt }}</label>
+    <i *ngIf="control.errors  && dt" class="fa fa-exclamation-circle" matTooltip="{{ control.errors.message }}"
+        [matTooltipPosition]="'above'"></i>
+    <kendo-dropdownlist [ngStyle]="{ 'border-color': control.errors && !dt ? '#dc3545' : ''}" [formControl]="control" class="{{this.classBgColor}}" (selectionChange)="valueChange($event)"
+        [data]="_dataItems" [loading]="_isLoading" [valueField]="'Id'" [textField]="'Text'">
+
+        <ng-template kendoDropDownListValueTemplate let-dataItem>
+
+            <span class="{{this.classBgColor}}"> {{
+                dataItem?.Text
+                }}</span>
+        </ng-template>
+
+
+        <ng-template kendoDropDownListNoDataTemplate> Please Add some Values </ng-template>
+        <ng-template kendoDropDownListFooterTemplate *ngIf="cr != null">
+            <button style="margin-bottom: 5px;" mat-mini-icon-button matTooltip="Add {{ dt }}" (click)="onaddbutton()">
+                <span class="mr-60">
+                    <mat-icon>add_circle</mat-icon>
+                    <span class="mt-2">Add {{ dt }}</span></span>
+            </button>
+        </ng-template>
+    </kendo-dropdownlist>
+</div>

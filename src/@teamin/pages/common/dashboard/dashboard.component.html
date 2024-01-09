@@ -1,0 +1,134 @@
+<div class="absolute inset-0 flex flex-col min-w-0 overflow-hidden">
+
+  <!-- Header -->
+  <div
+    class="flex  sm:flex-row flex-0 sm:items-center sm:justify-between p-2 sm:py-2 sm:px-6 border-b bg-card bg-primary dark:bg-transparent">
+    <div class="flex-1 min-w-0">
+      <!-- Title -->
+      <div>
+        <h2 class="text-2xl md:text-2xl font-bold text-white tracking-tight leading-7 sm:leading-10 truncate">
+          {{ this._con.p.DisplayText}}
+        </h2>
+      </div>
+    </div>
+    <!-- Actions -->
+    <div class="flex shrink-0 items-center sm:mt-0 sm:ml-4">
+      <!-- <mat-icon svgIcon="heroicons_outline:cube" style="color: white;"></mat-icon><strong class="text-white">{{
+        this.user?.StoreName}}</strong> -->
+      <button mat-icon-button (click)="refresh()" [matTooltip]="'Refresh Page'">
+        <mat-icon class="cursor-pointer icon-size-6" svgIcon="heroicons_solid:refresh" style="color: white;"></mat-icon>
+      </button>
+      <!-- <button mat-icon-button (click)="Onfilter(this._con)" [matTooltip]="'Filter'">
+        <mat-icon class="cursor-pointer icon-size-6" svgIcon="mat_outline:filter_alt" style="color: white;"></mat-icon>
+      </button> -->
+      <button mat-icon-button (click)="matDrawer.toggle()" [matTooltip]="'Add Data'">
+        <mat-icon svgIcon="heroicons_outline:menu" style="color: white;"></mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <mat-drawer-container class="flex-auto h-full">
+
+    <!-- Drawer content -->
+    <mat-drawer-content class="flex flex-col">
+
+      <!-- Main -->
+      <div class="flex-auto p-2 sm:p-2">
+
+        <!-- CONTENT GOES HERE -->
+        <div class="h-full min-h-full">
+          <gridster #gridster [options]="options" [className]="'bg-slate-100'">
+            <gridster-item [item]="item" [ngClass]="item.ct == 'WTile' ? 'bg-card rounded-2xl' : 'bg-card rounded'"
+              *ngFor="let item of widgets">
+              <t-widget-tile *ngIf="item.ct == 'WTile'" [cn]="item.cn" class="h-full"></t-widget-tile>
+              <t-widget-chart *ngIf="item.ct == 'WChart'" [cn]="item.cn" class="h-full"></t-widget-chart>
+              <t-widget-list *ngIf="item.ct == 'WList'" [cn]="item.cn" class="h-full"></t-widget-list>
+            </gridster-item>
+          </gridster>
+        </div>
+
+      </div>
+
+    </mat-drawer-content>
+
+
+    <!-- Drawer -->
+    <mat-drawer class="w-100 dark:bg-gray-900" [autoFocus]="false" [mode]="'over'" [opened]="false" [position]="'end'"
+      #matDrawer>
+      <div class="h-full">
+        <div class="flex h-full flex-col overflow-auto bg-white shadow-xl">
+          <div class="flex-1 h-full py-4 px-2 sm:px-2">
+            <div class="flex items-start justify-between">
+              <h2 class="text-lg font-medium text-gray-900" id="slide-over-title">Available Widgets</h2>
+              <div class="ml-3 flex h-7 items-center">
+                <button type="button" class="-m-2 p-2 text-gray-400 hover:text-gray-500">
+                  <div>
+                    <button mat-icon-button (click)="matDrawer.close()">
+                      <mat-icon svgIcon="heroicons_outline:x"></mat-icon>
+                    </button>
+                  </div>
+
+                </button>
+              </div>
+            </div>
+
+            <div class="mt-8">
+              <div class="flow-root">
+                <ul role="list" class="-my-6 divide-y divide-gray-200">
+                  <li class="flex py-6 hover:dark cursor-pointer" *ngFor="let w of allWidgets;let i = index">
+                    <div class="h-24 w-30 flex-shrink-0 overflow-hidden rounded-md" *ngIf="w.ct  == 'WList'">
+                      <img class="w-30 h-20 mt-3" src="assets/images/charts/list.png " />
+                    </div>
+                    <div class="h-24 w-30 flex-shrink-0 overflow-hidden rounded-md" *ngIf="w.ct == 'WTile'">
+                      <img class="w-24 h-24 mt-3" src="assets/images/charts/card_1.png " />
+                    </div>
+                    <div class="h-24 w-30 flex-shrink-0 overflow-hidden rounded-md"
+                      *ngIf="w.p.WidgetGraphDefaultChartType == 'column'">
+                      <img class="w-30 h-20 " src="assets/images/charts/column.png " />
+                    </div>
+                    <div class="h-24 w-30 flex-shrink-0 overflow-hidden rounded-md"
+                      *ngIf="w.p.WidgetGraphDefaultChartType == 'bar'">
+                      <img class="w-30 h-20 " src="assets/images/charts/bar.png " />
+                    </div>
+                    <div class="h-24 w-30 flex-shrink-0 overflow-hidden rounded-md"
+                      *ngIf="w.p.WidgetGraphDefaultChartType == 'donut'">
+                      <img class="w-30 h-20 " src="assets/images/charts/donutchart1.png " />
+                    </div>
+                    <div class="h-24 w-30 flex-shrink-0 overflow-hidden rounded-md"
+                      *ngIf="w.p.WidgetGraphDefaultChartType == 'pie'">
+                      <img class="w-30 h-20 " src="assets/images/charts/pie_chart_12.png " />
+                    </div>
+                    <div class="h-24 w-30 flex-shrink-0 overflow-hidden rounded-md"
+                      *ngIf="w.p.WidgetGraphDefaultChartType == 'bubble'">
+                      <img class="w-30 h-20 " src="assets/images/charts/bubble1.png" />
+                    </div>
+                    <div class="ml-4 flex flex-1 flex-col">
+                      <div>
+                        <div class="flex justify-between text-base font-medium text-gray-900">
+                          <h3>
+                            {{w.p.DisplayText}}
+                          </h3>
+                        </div>
+                        <p class="mt-1 text-sm text-gray-500">{{w.p.Description}}</p>
+                      </div>
+                      <div class="flex flex-1 items-end text-sm">
+                        <div class="flex">
+                          <button type="button" [disabled]="isdisable(w.cn)  || this.check?.p?.DisplayText == w.p.DisplayText"
+                            class="font-medium text-white hover:text-white bg-success mb-5 btn w-24 h-10 rounded"
+                             (click)="onAdd(w)">Add</button>
+                          <!-- <button *ngIf=" this.check?.p?.DisplayText == w.p.DisplayText"><mat-icon class="text-indigo-500"  style="font-size: 15px;">done</mat-icon></button> -->
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-drawer>
+
+  </mat-drawer-container>
+
+</div>

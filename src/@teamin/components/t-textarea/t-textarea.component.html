@@ -1,0 +1,6 @@
+<div class="form-group" [ngClass]="{ 'my-invalid': control.errors }">
+    <label class="control-label">{{ dt }}</label>
+    <i *ngIf="control.errors" class="fa fa-exclamation-circle" matTooltip="{{ control.errors.message }}"
+        [matTooltipPosition]="'above'"></i>
+    <textarea [ngStyle]="{ 'border-color': control.errors && !dt ? '#dc3545' : ''}" rows="{{ rows }}" class="k-textarea border-solid border-2" [formControl]="control"></textarea>
+</div>

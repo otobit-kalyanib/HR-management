@@ -1,0 +1,25 @@
+<div class="form-group" [ngClass]="{ 'my-invalid': control.errors }">
+    <label class="control-label">
+        <!-- <span *ngIf="isWhatsapp"><i class='fab fa-whatsapp'></i></span> <span *ngIf="!isWhatsapp"> <i class='fa-phone'></i> </span> -->
+        {{ dt }} </label>
+
+    <i *ngIf="control.errors  && dt" class="fa fa-exclamation-circle" matTooltip="{{ control.errors.message }}"
+        [matTooltipPosition]="'above'"></i>
+    <!-- <div class="flex items-center justify-center justify-evenly">
+        <div><i class='fab fa-whatsapp'></i></div>
+        <div> -->
+    <ngx-intl-tel-input kendoTextBox [ngStyle]="{ 'border-color': control.errors && !dt ? '#dc3545' : ''}" [inputId]="phoneId" [enableAutoCountrySelect]="false" [enablePlaceholder]="true"
+        [searchCountryFlag]="true" [searchCountryField]="[
+                SearchCountryField.Iso2,
+                SearchCountryField.Name
+            ]" [selectedCountryISO]="CountryISO.India" [maxLength]="10" [phoneValidation]="true"
+        [separateDialCode]="true" [onlyCountries]="preferredCountries" [(ngModel)]="phoneNumber"
+        (ngModelChange)="onChange()" [disabled]="isDisabled">
+    </ngx-intl-tel-input>
+    <!-- </div>
+
+
+    </div> -->
+
+    <input type="hidden" [formControl]="control" />
+</div>

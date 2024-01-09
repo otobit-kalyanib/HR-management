@@ -1,0 +1,19 @@
+<tr-viewer
+    id="#viewer1"
+    #viewer1
+    [containerStyle]="viewerContainerStyle"
+    [serviceUrl]="_serviceURL"
+    [authenticationToken]="token"
+    [parameters]="parameterStyle"
+    [viewMode]="'PRINT_PREVIEW'"
+    [scaleMode]="'FIT_PAGE_WIDTH'"
+    [reportSource]="_reportSource"
+    [scale]="1.0"
+    [ready]="ready"
+    [viewerToolTipOpening]="viewerToolTipOpening"
+    [error]="onError"
+    [enableAccessibility]="false"
+    [parametersAreaVisible]="parametersAreaVisible"
+    (click)="viewerClick($event)"
+>
+</tr-viewer>

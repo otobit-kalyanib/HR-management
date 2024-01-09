@@ -1,0 +1,30 @@
+<kendo-grid
+    #ele
+    [data]="gridSettings.data"
+    [selectable]="selectableSettings"
+    [height]="gridSettings.height"
+    [loading]="isLoading"
+    [scrollable]="'true'"
+    [resizable]="'true'"
+    [kendoGridSelectBy]="gridSettings.keyField"
+    [(selectedKeys)]="selectedValues"
+    filterable="true"
+>
+    <ng-template kendoGridToolbarTemplate>
+        <h4 class="mt-2">{{ gridSettings.dt }}</h4>
+    </ng-template>
+    <kendo-grid-checkbox-column
+        [showSelectAll]="showSelectAll"
+    ></kendo-grid-checkbox-column>
+    <kendo-grid-column
+        *ngFor="let column of gridSettings.columns"
+        [field]="column.field"
+        [title]="column.title"
+        [filter]="column.type"
+        [hidden]="column.hidden"
+        [format]="column.format"
+        columnMenu="true"
+        autoSize="true"
+    >
+    </kendo-grid-column>
+</kendo-grid>

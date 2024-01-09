@@ -1,0 +1,53 @@
+<div class="form-group" [ngClass]="{ 'my-invalid': control.errors }">
+    <label>{{ dt }}</label>
+    <label class="pl-100" *ngIf="dt1">{{ dt1 }}</label>
+    <i *ngIf="control.errors && dt" class="fa fa-exclamation-circle" matTooltip="{{ control.errors.message }}"
+        [matTooltipPosition]="'above'"></i>
+    <input type="hidden" [formControl]="control" />
+    <div class="row" class="hidden-{{ toggle }}">
+        <div class="col-6" style="
+                padding-right: 0;
+                margin-right: 15px;
+                max-width: calc(50% - 15px);
+            ">
+            <kendo-datetimepicker [ngStyle]="{ 'border-color': control.errors && !dt ? '#dc3545' : ''}"
+                 [(ngModel)]="dateRange.FromDate" [attr.disabled]="isDisabled ? '' : null"
+                [format]="'dd-MM-yyyy HH:mm'" (valueChange)="onChange($event)">
+            </kendo-datetimepicker>
+            <!-- <kendo-datepicker [disabled]="isDisabled" [format]="'dd-MM-yyyy'" [(ngModel)]="dateRange.FromDate"
+                (valueChange)="onChange($event)">
+            </kendo-datepicker> -->
+        </div>
+        <button type="button" style="margin: 0 -16px; width: 33px !important" (click)="toggleClick()">
+            <!-- <i class="fa fa-arrow-down"></i> -->
+            <mat-icon svgIcon="mat_solid:arrow_downward" class="pr-2 text-dark"></mat-icon>
+        </button>
+        <div class="col-6" style="
+                padding-left: 0;
+                margin-left: 14px;
+                max-width: calc(50% - 15px);
+            ">
+            <kendo-datetimepicker [ngStyle]="{ 'border-color': control.errors && !dt ? '#dc3545' : ''}"
+               [(ngModel)]="dateRange.ToDate" [attr.disabled]="isDisabled ? '' : null"
+                [format]="'dd-MM-yyyy HH:mm'" (valueChange)="onChange($event)" >
+            </kendo-datetimepicker>
+            <!-- <kendo-datepicker [disabled]="isDisabled" [format]="'dd-MM-yyyy'" [(ngModel)]="dateRange.ToDate"
+                (valueChange)="onChange($event)">
+            </kendo-datepicker> -->
+        </div>
+    </div>
+    <div class="row" class="hidden-{{ !toggle }}">
+        <div class="col-12">
+            <div class="input-group">
+                <kendo-dropdownlist #dropdownlist [data]="data" [valueField]="'Id'" [textField]="'Text'"
+                    (valueChange)="onDropChange($event)" style="width: calc(100% - 30px)"></kendo-dropdownlist>
+                <div class="input-group-append">
+                    <button type="button" class="btn btn-secondary m-0" style="width:30px; box-shadow:none"
+                        (click)="toggleClick()">
+                        X
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

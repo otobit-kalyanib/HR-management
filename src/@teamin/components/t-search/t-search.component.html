@@ -1,0 +1,35 @@
+<div class="form-group" [ngClass]="{ 'my-invalid': control.errors }">
+    <label class="control-label">{{ dt }}</label>
+    <i *ngIf="control.errors && dt" class="fa fa-exclamation-circle" matTooltip="{{ control.errors.message }}"
+        [matTooltipPosition]="'above'"></i>
+
+    <kendo-combobox [ngStyle]="{ 'border-color': control.errors && !dt ? '#dc3545' : ''}" #searchbox
+        (focus)="onFocus(searchbox)" [formControl]="control" [data]="_dataItems" #input (input)="oninput($event)"
+        [filterable]="true" [loading]="_isLoading" (filterChange)="handleFilter($event)" [valueField]="'Id'"
+        [textField]="'Text'" (valueChange)="valueChange($event)" [allowCustom]="allowCustom"
+        [disabled]="isDisabled ? true : null" [valueNormalizer]="valueNormalizer">
+        <ng-template kendoComboBoxNoDataTemplate *ngIf="createCn != null">
+            <button type="button" class="btn btn-outline-tertiary">
+                {{ _apiService.getController(createCn).p.DisplayText }}
+            </button>
+        </ng-template>
+
+        <ng-template kendoComboBoxNoDataTemplate> Please add some values </ng-template>
+        <ng-template kendoComboBoxFooterTemplate *ngIf="cr != null">
+            <div class="row">
+                <div class="col-md-6" matTooltip="Add {{ dt }}" (click)="onaddbutton()">
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <button class="ml-3" mat-icon>
+                                <mat-icon class="pt-1">add_circle</mat-icon>
+                            </button>
+                        </div>
+                        <div class="col-sm-10">
+                            <strong class="h6 ml-2">Add {{ dt }}</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    </kendo-combobox>
+</div>

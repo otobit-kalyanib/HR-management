@@ -1,0 +1,38 @@
+<mat-card class="example-card">
+    <mat-card-header>
+        <mat-card-title class="h5"><strong>{{ dt }}</strong></mat-card-title>
+        <!-- <i
+                        *ngIf="control.errors"
+                        class="fa fa-exclamation-circle"
+                        matTooltip="{{ control.errors.message }}"
+                        [matTooltipPosition]="'above'"
+                    ></i> -->
+    </mat-card-header>
+    <mat-card-content>
+        <input type="hidden" kendoTextBox [formControl]="control" />
+        <div class="row mt-3" [formGroup]="instrumentForm">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <t-drop dt="Mode" formControlName="InstrumentType"
+                        [cn]="'Office-Accounting-FixedInstrumentType-Drop'" [pcn]="''"></t-drop>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <t-search dt="Bank" formControlName="Bank" [cn]="'Office-Common-FixedBanks-Search'" [pcn]="''">
+                    </t-search>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <t-input dt="Ref. #" formControlName="InstrumentNumber"></t-input>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <t-datepicker dt="Dated" formControlName="InstrumentDated"></t-datepicker>
+                </div>
+            </div>
+        </div>
+    </mat-card-content>
+</mat-card>

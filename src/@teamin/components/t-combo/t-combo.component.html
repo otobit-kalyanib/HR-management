@@ -1,0 +1,15 @@
+<div on-mouseover="over()" on-mouseleave="out()" class="form-group" [ngClass]="{'my-invalid': control.errors }">
+    <label class="control-label" *ngIf="dt">{{ dt }}</label>
+    <i *ngIf=" this.isHover && !this.isProduction" class="fa fa-exclamation-circle" matTooltip="{{ this.controlName }}"
+        [matTooltipPosition]="'above'"></i>
+    <i *ngIf="control.errors && dt" class="fa fa-exclamation-circle" matTooltip="{{ control.errors.message | json }}"
+        [matTooltipPosition]="'above'"></i>
+    <kendo-combobox #combobox [formControl]="control" [data]="_dataItems" [filterable]="true" [valueField]="'Id'" [attr.disabled]="isDisabled"
+        [textField]="'Text'" [allowCustom]="allowCustom" [loading]="_isLoading" (selectionChange)="valueChange($event)">
+        <ng-template kendoComboBoxNoDataTemplate *ngIf="createCn != null">
+            <button type="button" class="btn btn-outline-tertiary">
+                {{ _apiService.getController(createCn).p.DisplayText }}
+            </button>
+        </ng-template>
+    </kendo-combobox>
+</div>

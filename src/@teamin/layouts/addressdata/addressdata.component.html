@@ -1,0 +1,67 @@
+<mat-card class="example-card" [ngClass]="{ 'bg-gray-200': bgColor }">
+    <mat-card-header class="font-bold">
+        <mat-card-title>{{dt}} </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <div class="row">
+            <div class="col-2">
+                <p> Street </p>
+            </div>
+            <div class="col-10">
+                <p class="font-semibold">: {{this._Data.Street}}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2">
+                <p> Area </p>
+            </div>
+            <div class="col-10">
+                <p class="font-semibold">: {{this._Data.Area}}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <div class="row">
+                    <div class="col-4">
+                        <p> City </p>
+                    </div>
+                    <div class="col-8">
+                        <p class="font-semibold">: {{this._Data.City}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="row">
+                    <div class="col-4">
+                        <p> Pincode </p>
+                    </div>
+                    <div class="col-8">
+                        <p class="font-semibold">: {{this._Data.Pincode}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <div class="row">
+                    <div class="col-4">
+                        <p> District </p>
+                    </div>
+                    <div class="col-8">
+                        <p class="font-semibold">: {{this._Data.District}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="row">
+                    <div class="col-4">
+                        <p> State </p>
+                    </div>
+                    <div class="col-8">
+                        <p class="font-semibold">: {{this._Data.State}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </mat-card-content>
+</mat-card>

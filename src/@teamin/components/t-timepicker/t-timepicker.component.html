@@ -1,0 +1,7 @@
+<div class="form-group" [ngClass]="{ 'my-invalid': control.errors }">
+    <label *ngIf="dt">{{ dt }}</label>
+    <i *ngIf="control.errors && dt" class="fa fa-exclamation-circle" matTooltip="{{ control.errors.message }}"
+        [matTooltipPosition]="'above'"></i>
+    <kendo-timepicker [attr.disabled]="isDisabled ? '' : null" [format]="format" [formControl]="control">
+    </kendo-timepicker>
+</div>

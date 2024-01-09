@@ -1,0 +1,15 @@
+<div class="form-group configuration">
+    <label>{{displayText}}</label>
+    <kendo-upload 
+                  [saveUrl]="uploadSaveUrl"
+                  [removeUrl]="uploadRemoveUrl"
+                  [restrictions]="myRestrictions"
+                  [multiple]="false"
+                  (upload)="uploadEventHandler($event)"
+                  (remove)="removeEventHandler($event)"
+                  (success)="successEventHandler($event)"
+                  (error)="errorEventHandler($event)"
+                  (select)="selectEventHandler($event)"
+                  [(ngModel)]="myFiles" >
+    </kendo-upload>
+</div>
